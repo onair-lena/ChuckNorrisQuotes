@@ -15,7 +15,7 @@ To install dependencies and clean the git repo run:<br/>
 $ yarn instal
 
 Run project in Dev mode<br/>
-$ yarnstart
+$ yarn start
 
 <h2>Project Structure</h2>
 
