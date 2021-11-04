@@ -47,7 +47,7 @@ const FrontPage = () => {
             component="a"
             target="_blank"
             variant="h4"
-            href="chucknorris.io"
+            href="http://chucknorris.io"
           >
             Chuck Norris Quotes
           </Typography>

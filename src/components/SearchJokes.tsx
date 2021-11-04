@@ -53,14 +53,16 @@ const SearchJoke = () => {
     handleThrottlingSearch(event.target.value);
   };
 
-  const handleSearchClick = () => {
+  const handleDeleteClick = () => {
     setSearch("");
     setSearchResult({ result: [] });
   };
+
   return (
     <>
       <Grid display="flex" justifyContent="center" my={2}>
         <TextField
+          sx={{ width: "300px" }}
           label="Search field"
           type="search"
           value={search}
@@ -69,7 +71,7 @@ const SearchJoke = () => {
       </Grid>
 
       <Grid display="flex" justifyContent="center" my={2}>
-        <Button variant="contained" size="medium" onClick={handleSearchClick}>
+        <Button variant="contained" size="medium" onClick={handleDeleteClick}>
           Delete
         </Button>
       </Grid>
