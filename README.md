@@ -3,9 +3,6 @@
 The app shows legendary quotes of legendary Chuck Norris.
 You will receive a randon quote, quote by category and can search for specific quote by key word.
 
-Visit app<br/>
-<https://chuck-norrisquotes.herokuapp.com/>
-
 <h2>Quick start</h2>
 
 Clone this repo using:<br/>
