@@ -1,51 +1,36 @@
-import { Box, MenuItem, TextField, Typography } from "@mui/material";
-import * as React from "react";
-import { useState, useEffect } from "react";
-import { URL_CATEGORIES, URL_CATEGORY_SEARCH } from "../utils/api";
-import { ChuckNorrisResponse } from "../utils/response_type";
+import { Box, MenuItem, TextField, Typography } from '@mui/material';
+import * as React from 'react';
+import { useEffect } from 'react';
+import { URL_CATEGORIES, URL_CATEGORY_SEARCH } from '../utils/api';
+import { ChuckNorrisResponse } from '../utils/response_type';
+import { useFetchData } from '../utils/requests';
 
 const CategoriesList = () => {
-  const [categories, setCategories] = useState<string[]>([]);
-  const [jokeByCategory, setJokeByCategory] = useState<ChuckNorrisResponse>({
-    categories: "",
-    value: "",
-    id: "",
-  });
+  const { data: categories, getData: getCategories } = useFetchData<string[]>();
 
-  const getCategories = () => {
-    fetch(URL_CATEGORIES).then(async (response) => {
-      const data: string[] = await response.json();
-      setCategories(data);
-    });
-  };
-
-  const getJokeByCategory = (category: string) => {
-    fetch(`${URL_CATEGORY_SEARCH}${category}`).then(async (response) => {
-      const data: ChuckNorrisResponse = await response.json();
-      setJokeByCategory(data);
-    });
-  };
+  const { data: jokeByCategory, getData: getJokeByCategory } =
+    useFetchData<ChuckNorrisResponse>();
 
   useEffect(() => {
-    getCategories();
+    getCategories(URL_CATEGORIES);
   }, []);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    getJokeByCategory(event.target.value);
+    getJokeByCategory(`${URL_CATEGORY_SEARCH}${event.target.value}`);
   };
 
   return (
     <>
       <Box display="flex" justifyContent="center" my={2}>
         <TextField
-          sx={{ width: "300px" }}
+          sx={{ width: '300px' }}
           id="categories"
           select
           label="Select category"
-          value={jokeByCategory?.categories[0] || ""}
+          value={jokeByCategory?.categories[0] || ''}
           onChange={handleChange}
         >
-          {categories.map((option) => (
+          {categories?.map((option) => (
             <MenuItem key={option} value={option}>
               {option}
             </MenuItem>
