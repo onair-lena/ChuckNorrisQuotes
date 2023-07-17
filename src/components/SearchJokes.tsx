@@ -6,55 +6,46 @@ import {
   ListItemAvatar,
   ListItemText,
   TextField,
-} from "@mui/material";
-import { Box } from "@mui/system";
-import { useState, useRef } from "react";
-import { URL_SEARCH_BY_WORD } from "../utils/api";
-import { SearchByKeyWordResult } from "../utils/response_type";
+} from '@mui/material';
+import { Box } from '@mui/system';
+import { useState, useRef } from 'react';
+import { URL_SEARCH_BY_WORD } from '../utils/api';
+import { SearchByKeyWordResult } from '../utils/response_type';
+import { useFetchData } from '../utils/requests';
+import FilterVintageOutlinedIcon from '@mui/icons-material/FilterVintageOutlined';
 
 const SearchJoke = () => {
-  const [search, setSearch] = useState<string>("");
+  const [search, setSearch] = useState<string>('');
   const [searchResult, setSearchResult] = useState<SearchByKeyWordResult>({
     result: [],
   });
 
-  const throttling = useRef<boolean>(false);
+  const { getData: getDataOnSearch } = useFetchData<SearchByKeyWordResult>();
 
-  const handleThrottlingSearch = (searchSymb: string) => {
-    if (throttling.current) {
+  const timeout = useRef<NodeJS.Timeout | undefined>(undefined);
+
+  const handleDebounceSearch = (searchSymb: string) => {
+    clearTimeout(timeout.current);
+
+    if (!searchSymb.trim() || searchSymb.length < 3) {
       return;
     }
-    if (searchSymb.length < 3) {
-      setSearchResult({ result: [] });
-      return;
-    }
-
-    throttling.current = true;
-    window.setTimeout(() => {
-      throttling.current = false;
-      fetch(`${URL_SEARCH_BY_WORD}${searchSymb}`)
-        .then(async (response) => {
-          if (!response.ok) {
-            console.log("Something went wrong!");
-          } else {
-            const data: SearchByKeyWordResult = await response.json();
-            setSearchResult(data);
-            console.log(data);
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    }, 800);
+    timeout.current = setTimeout(async () => {
+      const result = await getDataOnSearch(
+        `${URL_SEARCH_BY_WORD}${searchSymb}`
+      );
+      console.log(result);
+      setSearchResult(result);
+    }, 600);
   };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(event.target.value);
-    handleThrottlingSearch(event.target.value);
+    handleDebounceSearch(event.target.value);
   };
 
   const handleDeleteClick = () => {
-    setSearch("");
+    setSearch('');
     setSearchResult({ result: [] });
   };
 
@@ -62,7 +53,7 @@ const SearchJoke = () => {
     <>
       <Grid display="flex" justifyContent="center" my={2}>
         <TextField
-          sx={{ width: "300px" }}
+          sx={{ width: '300px' }}
           label="Search field"
           type="search"
           value={search}
@@ -80,7 +71,7 @@ const SearchJoke = () => {
           {searchResult?.result?.slice(0, 5)?.map((item: any) => (
             <ListItem key={item?.id}>
               <ListItemAvatar>
-                <Avatar alt="icon" src={item?.icon_url} />
+                <FilterVintageOutlinedIcon />
               </ListItemAvatar>
               <ListItemText primary={item?.value} />
             </ListItem>
