@@ -33,7 +33,7 @@ const SearchJoke = () => {
       const result = await getDataOnSearch(
         `${URL_SEARCH_BY_WORD}${searchSymb}`
       );
-      console.log(result);
+
       setSearchResult(result);
     }, 600);
   };
@@ -50,7 +50,7 @@ const SearchJoke = () => {
 
   return (
     <>
-      <Grid display="flex" justifyContent="center" my={2}>
+      <Grid display="flex" justifyContent="center" my={6}>
         <TextField
           sx={{ width: '300px' }}
           label="Search field"

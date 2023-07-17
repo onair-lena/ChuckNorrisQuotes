@@ -1,6 +1,7 @@
-import { Paper } from '@mui/material';
 import { Box } from '@mui/system';
-import React from 'react';
+import React, { useContext } from 'react';
+import { appContext } from '../utils/context';
+import { AlertBar } from '../components/AlertBar';
 
 type TProps = {
   header: React.ReactNode;
@@ -9,9 +10,14 @@ type TProps = {
 };
 
 const Layout = ({ header, children, footer }: TProps) => {
+  const { error, setError } = useContext(appContext);
+
+  const handleClose = () => setError('');
+
   return (
     <Box>
       {header}
+      {error && <AlertBar text={error} handleClose={handleClose} />}
       <Box mt={8} sx={{ display: 'flex', height: 'calc(100vh - 128px)' }}>
         {children}
       </Box>

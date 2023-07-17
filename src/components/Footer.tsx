@@ -1,10 +1,10 @@
-import { BottomNavigation, Box, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 import React from 'react';
 
 export const Footer = () => {
   return (
-    <BottomNavigation showLabels>
+    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
       <Typography variant="caption" color="initial" px={1}>
         Copyright ©2023.
       </Typography>
@@ -17,6 +17,6 @@ export const Footer = () => {
       >
         Chucknorris.io
       </Typography>
-    </BottomNavigation>
+    </Box>
   );
 };
