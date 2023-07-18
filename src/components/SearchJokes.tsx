@@ -10,7 +10,7 @@ import { Box } from '@mui/system';
 import { useState, useRef } from 'react';
 import { URL_SEARCH_BY_WORD } from '../utils/api';
 import { SearchByKeyWordResult } from '../utils/response_type';
-import { useFetchData } from '../utils/requests';
+import { useFetchData } from '../utils/useFetchData';
 import FilterVintageOutlinedIcon from '@mui/icons-material/FilterVintageOutlined';
 
 const SearchJoke = () => {
@@ -53,7 +53,6 @@ const SearchJoke = () => {
       <Grid display="flex" justifyContent="center" my={6}>
         <TextField
           sx={{ width: '300px' }}
-          label="Search field"
           type="search"
           value={search}
           onChange={handleChange}
@@ -62,7 +61,7 @@ const SearchJoke = () => {
 
       <Grid display="flex" justifyContent="center" my={2}>
         <Button variant="contained" size="medium" onClick={handleDeleteClick}>
-          Delete
+          Clear
         </Button>
       </Grid>
       <Grid item xs={12} display="flex" justifyContent="center">

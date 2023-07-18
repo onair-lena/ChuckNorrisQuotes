@@ -1,7 +1,7 @@
 import { Box } from '@mui/system';
 import React, { useContext } from 'react';
 import { appContext } from '../utils/context';
-import { AlertBar } from '../components/AlertBar';
+import { AlertBar } from './AlertBar';
 
 type TProps = {
   header: React.ReactNode;

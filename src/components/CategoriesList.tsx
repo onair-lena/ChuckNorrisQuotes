@@ -1,20 +1,14 @@
-import {
-  Box,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  Typography,
-} from '@mui/material';
+import { Box, SelectChangeEvent, Typography } from '@mui/material';
 import * as React from 'react';
 
 import { URL_CATEGORIES, URL_CATEGORY_SEARCH } from '../utils/api';
 import { ChuckNorrisResponse } from '../utils/response_type';
-import { useFetchData } from '../utils/requests';
+import { useFetchData } from '../utils/useFetchData';
+import { useState } from 'react';
+import { SelectField } from './SelectField';
 
 const CategoriesList = () => {
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const { data: categories, getData: getCategories } = useFetchData<string[]>();
 
   const { data: jokeByCategory, getData: getJokeByCategory } =
@@ -34,25 +28,13 @@ const CategoriesList = () => {
   return (
     <>
       <Box display="flex" justifyContent="center" my={2}>
-        <FormControl sx={{ m: 1, minWidth: 250 }}>
-          <InputLabel id="categories">Select category</InputLabel>
-          <Select
-            labelId="categories"
-            id="categories"
-            open={open}
-            onClose={handleOpen}
-            onOpen={handleOpen}
-            value={jokeByCategory?.categories[0] || ''}
-            label="Select category"
-            onChange={handleChange}
-          >
-            {categories?.map((option) => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl>
+        <SelectField
+          open={open}
+          handleOpen={handleOpen}
+          handleChange={handleChange}
+          options={categories || []}
+          value={jokeByCategory?.categories[0] || ''}
+        />
       </Box>
       <Typography align="center">{jokeByCategory?.value}</Typography>
     </>

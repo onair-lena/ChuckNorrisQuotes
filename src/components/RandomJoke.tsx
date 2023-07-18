@@ -22,7 +22,9 @@ const RandomJoke = () => {
 
   return (
     <>
-      <Typography align="center">{randomQuote}</Typography>
+      <Typography align="center" sx={{ fontSize: '20px', px: 2 }}>
+        {randomQuote}
+      </Typography>
       <Box display="flex" justifyContent="center" my={2}>
         <Button variant="contained" size="medium" onClick={handleGetJoke}>
           Get Joke
