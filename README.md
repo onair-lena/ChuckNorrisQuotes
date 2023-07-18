@@ -21,8 +21,7 @@ This folder contains all components
 
 src/pages<br/>
 This directory contains pages
-
-pages
-├── home page
-├── categories
-├── search
+pages<br/>
+├── home page<br/>
+├── categories<br/>
+├── search<br/>
